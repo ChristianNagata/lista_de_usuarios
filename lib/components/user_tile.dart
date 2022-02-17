@@ -5,7 +5,7 @@ import 'package:flutter_crud/routes/app_routes.dart';
 class UserTile extends StatelessWidget {
   final User user;
 
-  const UserTile(this.user);
+  UserTile(this.user);
 
   @override
   Widget build(BuildContext context) {

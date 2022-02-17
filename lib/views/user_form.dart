@@ -8,20 +8,37 @@ class UserForm extends StatelessWidget {
   final _form = GlobalKey<FormState>();
   final Map<String, dynamic> _formData = {};
 
+  void _loadFormData(User user) {
+    _formData['id'] = user.id;
+    _formData['name'] = user.name;
+    _formData['email'] = user.email;
+    _formData['avatarUrl'] = user.avatarUrl;
+  }
+
   @override
   Widget build(BuildContext context) {
+
+
+
+    final route = ModalRoute.of(context);
+    final user = route!.settings.arguments as User; // dando erro
+    _loadFormData(user);
+
+
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Formulário de Usuário'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Form(
           key: _form,
           child: Column(
             children: [
               TextFormField(
-                decoration: InputDecoration(labelText: 'Nome'),
+                initialValue: _formData['name'],
+                decoration: const InputDecoration(labelText: 'Nome'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Valor inválido';
@@ -34,11 +51,13 @@ class UserForm extends StatelessWidget {
                 onSaved: (value) => _formData['name'] = value,
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Email'),
+                initialValue: _formData['email'],
+                decoration: const InputDecoration(labelText: 'Email'),
                 onSaved: (value) => _formData['email'] = value,
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Url do avatar'),
+                initialValue: _formData['avatarUrl'],
+                decoration: const InputDecoration(labelText: 'Url do avatar'),
                 onSaved: (value) => _formData['avatarUrl'] = value,
               ),
             ],
@@ -52,7 +71,7 @@ class UserForm extends StatelessWidget {
             _form.currentState!.save();
             Provider.of<Users>(context, listen: false).put(
               User(
-                '',
+                id: _formData['id'],
                 name: _formData['name'],
                 email: _formData['email'],
                 avatarUrl: _formData['avatarUrl'],

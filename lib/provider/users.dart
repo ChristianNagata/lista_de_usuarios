@@ -5,7 +5,7 @@ import 'package:flutter_crud/data/dummy_users.dart';
 import 'package:flutter_crud/models/user.dart';
 
 class Users with ChangeNotifier {
-  final Map<String, User> _items = {...DUMMY_USERS};
+  final Map<dynamic, User> _items = {...DUMMY_USERS};
 
   List<User> get all {
     return [..._items.values];
@@ -20,7 +20,7 @@ class Users with ChangeNotifier {
   }
 
   void put(User user) {
-    if (user.id.trim().isNotEmpty && _items.containsKey(user.id)) {
+    if (user.id!.trim().isNotEmpty && _items.containsKey(user.id)) {
       _items.update(user.id, (_) => user);
     }
     else {
@@ -28,7 +28,7 @@ class Users with ChangeNotifier {
       _items.putIfAbsent(
         id,
             () => User(
-          id,
+          id: id,
           name: user.name,
           email: user.email,
           avatarUrl: user.avatarUrl,
@@ -39,7 +39,7 @@ class Users with ChangeNotifier {
   }
 
   void remove(User user) {
-    if (user != null && user.id !=null) {
+    if (user.id !=null) {
       _items.remove(user.id);
       notifyListeners();
     }
