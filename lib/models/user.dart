@@ -10,4 +10,7 @@ class User {
     required this.email,
     required this.avatarUrl,
   });
+
+  @override
+  String toString() => '{name: $name, email: $email';
 }

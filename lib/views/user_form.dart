@@ -18,13 +18,11 @@ class UserForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-
-
     final route = ModalRoute.of(context);
-    final user = route!.settings.arguments as User; // dando erro
-    _loadFormData(user);
-
-
+    if (route!.settings.arguments != null) {
+      final user = route.settings.arguments as User;
+      _loadFormData(user);
+    }
 
     return Scaffold(
       appBar: AppBar(

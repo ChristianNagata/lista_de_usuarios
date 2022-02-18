@@ -20,7 +20,7 @@ class Users with ChangeNotifier {
   }
 
   void put(User user) {
-    if (user.id!.trim().isNotEmpty && _items.containsKey(user.id)) {
+    if (user.id.trim().isNotEmpty && _items.containsKey(user.id)) {
       _items.update(user.id, (_) => user);
     }
     else {
